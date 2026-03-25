@@ -90,7 +90,9 @@
             btn.disabled = true;
             const name = document.getElementById('guestName').value;
             const content = document.getElementById('guestMessage').value;
-            const { error } = await _supabase.from('blessing').insert([{ name, content }]);
+            const { error } = await _supabase
+    .from('blessing') 
+    .insert([{ name, content }]);
             if (!error) { document.getElementById('blessingForm').reset(); fetchMessages(); }
             else { alert('حدث خطأ في الإرسال'); }
             btn.disabled = false;
