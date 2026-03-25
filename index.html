@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف | محمد & ميادة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Amiri', serif; scroll-behavior: smooth; }
+        .hero-font { font-family: 'Aref Ruqaa', serif; }
+        .bg-wedding {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+        }
+        /* تحسين شكل السكرول بار لقسم الرسائل */
+        #messagesList::-webkit-scrollbar { width: 5px; }
+        #messagesList::-webkit-scrollbar-thumb { background: #a89166; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <section class="h-screen bg-wedding flex flex-col items-center justify-center text-white text-center p-4">
+        <h2 class="text-2xl mb-4 tracking-widest animate-pulse">بِسْمِ اللَّـهِ الرَّحْمَـٰنِ الرَّحِيمِ</h2>
+        <h1 class="hero-font text-6xl md:text-8xl my-6">محمد & ميادة</h1>
+        <p class="text-xl md:text-2xl max-w-md border-t border-b py-4 border-white/40">
+            يسرنا دعوتكم لمشاركتنا فرحتنا الكبرى
+        </p>
+        <a href="#details" class="mt-10 animate-bounce text-white/70">⬇ اسحب للأسفل</a>
+    </section>
+
+    <section id="details" class="py-20 px-6 text-center">
+        <div class="max-w-2xl mx-auto space-y-12">
+            <div>
+                <h3 class="text-3xl text-yellow-700 mb-4 hero-font">متى؟</h3>
+                <p class="text-xl font-bold">يوم الخميس، 16 أبريل 2026</p>
+                <p class="text-lg text-stone-500">الساعة 5:00 مساءً</p>
+            </div>
+
+            <div class="border-t border-stone-200 pt-12">
+                <h3 class="text-3xl text-yellow-700 mb-4 hero-font">أين؟</h3>
+                <p class="text-xl mb-6">قاعة Nile Plaza - الدقي - القاهرة</p>
+                <a href="https://maps.app.goo.gl/YourActualLinkHere" target="_blank" class="inline-block bg-yellow-700 text-white px-10 py-4 rounded-full hover:bg-yellow-800 transition shadow-lg">
+                    📍 فتح الموقع على الخريطة
+                </a>
+            </div>
+
+            <div id="timer-container" class="grid grid-cols-4 gap-2 md:gap-4 pt-10">
+                <div class="bg-white p-4 shadow-md rounded-lg border-b-4 border-yellow-700">
+                    <span id="days" class="block text-3xl font-bold text-yellow-700">00</span>
+                    <span class="text-sm text-stone-500">يوم</span>
+                </div>
+                <div class="bg-white p-4 shadow-md rounded-lg border-b-4 border-yellow-700">
+                    <span id="hours" class="block text-3xl font-bold text-yellow-700">00</span>
+                    <span class="text-sm text-stone-500">ساعة</span>
+                </div>
+                <div class="bg-white p-4 shadow-md rounded-lg border-b-4 border-yellow-700">
+                    <span id="minutes" class="block text-3xl font-bold text-yellow-700">00</span>
+                    <span class="text-sm text-stone-500">دقيقة</span>
+                </div>
+                <div class="bg-white p-4 shadow-md rounded-lg border-b-4 border-yellow-700">
+                    <span id="seconds" class="block text-3xl font-bold text-yellow-700">00</span>
+                    <span class="text-sm text-stone-500">ثانية</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-6 bg-stone-100 shadow-inner">
+        <div class="max-w-xl mx-auto text-center">
+            <h3 class="text-4xl text-yellow-700 mb-6 hero-font">شاركنا بكلمة طيبة</h3>
+            
+            <form id="blessingForm" class="space-y-4 text-right mb-12 bg-white p-6 rounded-2xl shadow-sm">
+                <div>
+                    <label class="block text-stone-600 mb-1 mr-1 text-sm">الاسم</label>
+                    <input type="text" id="guestName" required placeholder="اكتب اسمك هنا..." 
+                           class="w-full px-4 py-3 rounded-lg border border-stone-200 focus:outline-none focus:border-yellow-700 transition">
+                </div>
+                <div>
+                    <label class="block text-stone-600 mb-1 mr-1 text-sm">التهنئة</label>
+                    <textarea id="guestMessage" rows="3" required placeholder="بارك للعروسين..." 
+                              class="w-full px-4 py-3 rounded-lg border border-stone-200 focus:outline-none focus:border-yellow-700 transition"></textarea>
+                </div>
+                <button type="submit" id="submitBtn" class="w-full bg-yellow-700 text-white font-bold py-4 rounded-lg hover:bg-yellow-800 shadow-md transition transform active:scale-95">
+                    إرسال التهنئة ✨
+                </button>
+            </form>
+
+            <div id="messagesList" class="space-y-4 text-right max-h-80 overflow-y-auto px-2">
+                <p class="text-stone-400 italic">جاري تحميل التهاني...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-stone-200 py-10 text-center text-stone-500">
+        <p class="hero-font text-2xl mb-2 text-stone-700">محمد & ميادة</p>
+        <p>دامت دياركم عامرة بالأفراح</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // --- 1. إعدادات Supabase ---
+        const SUPABASE_URL = https://kprarkgrcobkvosfsxqk.supabase.co;
+        const SUPABASE_KEY = sb_publishable_-KQ6QeQVus7JPLHNuWVSJg_yxtlMLCm;
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const form = document.getElementById('blessingForm');
+        const messagesList = document.getElementById('messagesList');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // --- 2. وظيفة عرض الرسائل ---
+        async function fetchMessages() {
+            const { data, error } = await _supabase
+                .from('blessings')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                messagesList.innerHTML = '<p class="text-red-400">فشل تحميل الرسائل</p>';
+                return;
+            }
+            
+            if (data.length === 0) {
+                messagesList.innerHTML = '<p class="text-stone-400 italic">كن أول من يهنئ العروسين!</p>';
+                return;
+            }
+
+            messagesList.innerHTML = data.map(msg => `
+                <div class="bg-white p-4 rounded-xl border-r-4 border-yellow-700 shadow-sm animate-fade-in">
+                    <strong class="block text-yellow-800 text-lg">${msg.name}</strong>
+                    <p class="text-stone-600 mt-1 leading-relaxed">${msg.content}</p>
+                </div>
+            `).join('');
+        }
+
+        // --- 3. وظيفة إرسال الرسالة ---
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'جاري الإرسال...';
+
+            const name = document.getElementById('guestName').value;
+            const content = document.getElementById('guestMessage').value;
+
+            const { error } = await _supabase
+                .from('blessings')
+                .insert([{ name, content }]);
+
+            if (!error) {
+                form.reset();
+                await fetchMessages();
+            } else {
+                alert('حدث خطأ أثناء الإرسال، حاول مرة أخرى.');
+            }
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'إرسال التهنئة ✨';
+        });
+
+        // --- 4. وظيفة العد التنازلي ---
+        function updateTimer() {
+            const targetDate = new Date("April 16, 2026 17:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            } else {
+                document.getElementById("timer-container").innerHTML = "<p class='col-span-4 text-2xl font-bold text-yellow-700 hero-font animate-bounce'>بدأ الحفل الآن.. ننتظركم!</p>";
+            }
+        }
+
+        // تشغيل كل الوظائف عند التحميل
+        setInterval(updateTimer, 1000);
+        updateTimer();
+        fetchMessages();
+    </script>
+</body>
+</html>
