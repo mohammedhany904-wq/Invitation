@@ -114,7 +114,7 @@
         // جلب الرسائل من قاعدة البيانات
         async function fetchMessages() {
             const { data, error } = await _supabase
-                .from('blessings')
+                .from('blessing')
                 .select('*')
                 .order('created_at', { ascending: false });
 
@@ -146,7 +146,7 @@
             const content = document.getElementById('guestMessage').value;
 
             const { error } = await _supabase
-                .from('blessings')
+                .from('blessing')
                 .insert([{ name, content }]);
 
             if (!error) {
