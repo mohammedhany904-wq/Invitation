@@ -80,7 +80,7 @@
 
     <footer class="bg-stone-200 py-10 text-center text-stone-500"><p>دامت دياركم عامرة بالأفراح</p></footer>
 
-    <!-- مكتبات الربط -->
+    <!-- مكتبة Supabase ورابط المحرك -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://kprarkgrcobkvosfsxqk.supabase.co';
@@ -90,12 +90,23 @@
         const form = document.getElementById('blessingForm');
         const messagesList = document.getElementById('messagesList');
 
+        // جلب الرسائل من قاعدة البيانات وعرضها
         async function fetchMessages() {
-            const { data, error } = await _supabase.from('blessing').select('*').order('created_at', { ascending: false });
-            if (error || !data || data.length === 0) {
-                messagesList.innerHTML = '<p class="text-stone-400 text-center">لا توجد رسائل بعد، كن أول من يهنئ!</p>';
+            const { data, error } = await _supabase
+                .from('blessing')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                messagesList.innerHTML = '<p class="text-stone-400 text-center">تعذر تحميل التهاني حالياً</p>';
                 return;
             }
+
+            if (!data || data.length === 0) {
+                messagesList.innerHTML = '<p class="text-center text-stone-400">لا توجد رسائل بعد، كن أول من يهنئ!</p>';
+                return;
+            }
+
             messagesList.innerHTML = data.map(msg => `
                 <div class="bg-white p-4 rounded-xl border-r-4 border-yellow-700 shadow-sm mb-3">
                     <strong class="block text-yellow-800">${msg.name}</strong>
@@ -104,6 +115,7 @@
             `).join('');
         }
 
+        // إرسال التهنئة الجديدة
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
@@ -113,7 +125,9 @@
             const name = document.getElementById('guestName').value;
             const content = document.getElementById('guestMessage').value;
 
-            const { error } = await _supabase.from('blessing').insert([{ name, content }]);
+            const { error } = await _supabase
+                .from('blessing')
+                .insert([{ name, content }]);
 
             if (!error) {
                 form.reset();
@@ -125,6 +139,7 @@
             submitBtn.innerText = 'إرسال التهنئة ✨';
         });
 
+        // العد التنازلي
         function updateTimer() {
             const targetDate = new Date("2026-04-16T17:00:00").getTime();
             const now = new Date().getTime();
@@ -136,7 +151,10 @@
                 document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
             }
         }
-        setInterval(updateTimer, 1000); updateTimer(); fetchMessages();
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+        fetchMessages();
     </script>
 </body>
 </html>
