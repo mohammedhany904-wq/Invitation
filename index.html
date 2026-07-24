@@ -80,7 +80,7 @@
 
     <footer class="bg-stone-200 py-10 text-center text-stone-500"><p>دامت دياركم عامرة بالأفراح</p></footer>
 
-    <!-- مكتبة Supabase ورابط المحرك -->
+    <!-- مكتبة Supabase وتشغيل جلب التهاني -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://kprarkgrcobkvosfsxqk.supabase.co';
@@ -90,7 +90,7 @@
         const form = document.getElementById('blessingForm');
         const messagesList = document.getElementById('messagesList');
 
-        // جلب الرسائل من قاعدة البيانات وعرضها
+        // جلب وقراءة كل التهاني (القديمة والجديدة)
         async function fetchMessages() {
             const { data, error } = await _supabase
                 .from('blessing')
@@ -98,7 +98,7 @@
                 .order('created_at', { ascending: false });
 
             if (error) {
-                messagesList.innerHTML = '<p class="text-stone-400 text-center">تعذر تحميل التهاني حالياً</p>';
+                messagesList.innerHTML = '<p class="text-stone-400 text-center">تعذر تحميل الرسائل</p>';
                 return;
             }
 
@@ -133,7 +133,7 @@
                 form.reset();
                 await fetchMessages();
             } else {
-                alert('حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.');
+                alert('حدث خطأ، حاول مرة أخرى');
             }
             submitBtn.disabled = false;
             submitBtn.innerText = 'إرسال التهنئة ✨';
